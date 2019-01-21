@@ -25,11 +25,6 @@ public class WebfluxApplication {
 
     @GetMapping
     Mono<String> hello() {
-        try {
-            Thread.sleep(10L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return Mono.just("Hello Webflux");
     }
 }

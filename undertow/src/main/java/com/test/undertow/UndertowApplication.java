@@ -18,11 +18,6 @@ public class UndertowApplication {
 
     @GetMapping
     String hello() {
-        try {
-            Thread.sleep(10L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return "Hello Undertow";
     }
 }

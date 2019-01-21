@@ -20,10 +20,7 @@ public class ArmeriaApplication {
         sb.http(8080);
 
         sb.workerGroup(EventLoopGroups.newEventLoopGroup(16, "armeria-common-worker", true), true);
-        sb.service("/", (ctx, res) -> {
-            Thread.sleep(10L);
-            return HttpResponse.of("Hello Armeria");
-        });
+        sb.service("/", (ctx, res) -> HttpResponse.of("Hello Armeria"));
 
         Server server = sb.build();
         CompletableFuture<Void> future = server.start();
