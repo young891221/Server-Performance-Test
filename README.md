@@ -26,7 +26,7 @@ Requests/sec:  75561.34
 Transfer/sec:      7.21MB
 ```
 
-### armeria
+### armeria(worker = 16)
 ```bash
 Running 10s test @ http://127.0.0.1:8080
   10 threads and 500 connections
@@ -76,7 +76,7 @@ Requests/sec:  74903.29
 Transfer/sec:      5.86MB
 ```
 
-### spring boot undertow
+### spring boot undertow(worker = 200)
 ```bash
 Running 10s test @ http://127.0.0.1:8080
   10 threads and 500 connections
@@ -101,7 +101,7 @@ Requests/sec:  29015.60
 Transfer/sec:      4.26MB
 ```
 
-### webflux
+### webflux(worker = 8)
 ```bash
 Running 10s test @ http://127.0.0.1:8080
   10 threads and 500 connections
