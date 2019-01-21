@@ -1,5 +1,5 @@
-# Server Famefork Benchmark
-- using `wrk`
+# Server Framework Benchmark
+Server Frameworks performance test using `wrk`. You can test other benchmark tool.
 
 ### Netty
 ```bash
@@ -51,31 +51,6 @@ Requests/sec:  60798.65
 Transfer/sec:      5.39MB
 ```
 
-### undertow
-```bash
-Running 10s test @ http://127.0.0.1:8080
-  10 threads and 500 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    25.06ms   36.06ms 377.58ms   88.40%
-    Req/Sec     3.00k     0.85k    9.53k    81.14%
-  295578 requests in 10.09s, 43.41MB read
-  Socket errors: connect 0, read 375, write 0, timeout 0
-Requests/sec:  29302.00
-Transfer/sec:      4.30MB
-```
-
-```bash
-Running 10s test @ http://127.0.0.1:8080
-  5 threads and 500 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    39.10ms   67.70ms 496.82ms   86.02%
-    Req/Sec     6.91k     6.56k   30.56k    83.51%
-  292281 requests in 10.07s, 42.93MB read
-  Socket errors: connect 0, read 379, write 0, timeout 0
-Requests/sec:  29015.60
-Transfer/sec:      4.26MB
-```
-
 ### vertx
 ```bash
 Running 10s test @ http://127.0.0.1:8080
@@ -99,6 +74,31 @@ Running 10s test @ http://127.0.0.1:8080
   Socket errors: connect 0, read 328, write 0, timeout 0
 Requests/sec:  74903.29
 Transfer/sec:      5.86MB
+```
+
+### spring boot undertow
+```bash
+Running 10s test @ http://127.0.0.1:8080
+  10 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    25.06ms   36.06ms 377.58ms   88.40%
+    Req/Sec     3.00k     0.85k    9.53k    81.14%
+  295578 requests in 10.09s, 43.41MB read
+  Socket errors: connect 0, read 375, write 0, timeout 0
+Requests/sec:  29302.00
+Transfer/sec:      4.30MB
+```
+
+```bash
+Running 10s test @ http://127.0.0.1:8080
+  5 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    39.10ms   67.70ms 496.82ms   86.02%
+    Req/Sec     6.91k     6.56k   30.56k    83.51%
+  292281 requests in 10.07s, 42.93MB read
+  Socket errors: connect 0, read 379, write 0, timeout 0
+Requests/sec:  29015.60
+Transfer/sec:      4.26MB
 ```
 
 ### webflux
