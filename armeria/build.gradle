@@ -1,0 +1,19 @@
+sourceCompatibility = 1.8
+
+dependencies {
+    ['armeria',
+     'armeria-grpc',
+     'armeria-jetty',
+     'armeria-kafka',
+     'armeria-logback',
+     'armeria-retrofit2',
+     'armeria-rxjava',
+     'armeria-saml',
+     'armeria-thrift',
+     'armeria-zipkin',
+     'armeria-spring-boot-autoconfigure',
+     'armeria-spring-boot-webflux-autoconfigure',
+     'armeria-zookeeper'].each {
+        compile "com.linecorp.armeria:${it}:0.78.1"
+    }
+}

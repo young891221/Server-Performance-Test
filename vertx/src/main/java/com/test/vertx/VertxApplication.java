@@ -8,7 +8,7 @@ package com.test.vertx;
 import io.vertx.core.AbstractVerticle;
 
 /**
- * Created by youngjae.havi on 2018-12-04
+ * Created by youngjae.havi on 2019-01-21
  */
 public class VertxApplication extends AbstractVerticle {
 
