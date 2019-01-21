@@ -4,4 +4,5 @@ include 'vertx'
 include 'armeria'
 include 'undertow'
 include 'webflux'
+include 'netty'
 
