@@ -14,6 +14,12 @@ Test consist 10 threads vs 5 threads.
 <p align="center">
 <code>10 threads and 500 connections Test</code>
 </p>
+<p align="center">
+<kbd><img src="/image/result2.png"/></kbd>
+</p>
+<p align="center">
+<code>5 threads and 500 connections Test</code>
+</p>
 
 ### Netty
 ```bash
