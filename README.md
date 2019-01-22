@@ -8,8 +8,8 @@ Test consist 10 threads vs 5 threads.
 - 16GB 2400MHz Memory
 
 ## Result Diagram
-<kbd><img src="/image/result1.png"/></kbd>
-<code>10 threads and 500 connections Test</code>
+<kbd><img src="/image/result1.png"/></kbd><br>
+`10 threads and 500 connections Test`
 
 ### Netty
 ```bash
