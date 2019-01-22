@@ -9,6 +9,7 @@ Test consist 10 threads vs 5 threads.
 
 ## Result Diagram
 <kbd><img src="/image/result1.png"/></kbd>
+<code>10 threads and 500 connections Test</code>
 
 ### Netty
 ```bash
