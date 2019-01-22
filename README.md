@@ -8,7 +8,7 @@ Test consist 10 threads vs 5 threads.
 - 16GB 2400MHz Memory
 
 ## Result Diagram
-<kbd><img src="/images/result1.png"/></kbd>
+<kbd><img src="/image/result1.png"/></kbd>
 
 ### Netty
 ```bash
