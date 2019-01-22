@@ -1,17 +1,27 @@
 # Server Framework Benchmark
 Server Frameworks performance test using `wrk`. You can test other benchmark tool.
+Test consist 10 threads vs 5 threads.
+
+## Test Server Spec
+- Mac Mojave 10.14.2
+- 3.4GHz Core i5 CPU
+- 16GB 2400MHz Memory
+
+## Result Diagram
+<kbd><img src="/images/result1.png"/></kbd>
 
 ### Netty
 ```bash
 Running 10s test @ http://127.0.0.1:8080
   10 threads and 500 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     8.53ms   13.14ms 251.05ms   93.27%
-    Req/Sec     6.64k     1.75k   43.49k    87.49%
-  655954 requests in 10.10s, 62.56MB read
-  Socket errors: connect 0, read 532, write 0, timeout 0
-Requests/sec:  64937.55
-Transfer/sec:      6.19MB
+    Latency     7.68ms   10.21ms 151.09ms   93.80%
+    Req/Sec     7.02k     1.19k    9.98k    82.10%
+  698315 requests in 10.08s, 66.60MB read
+  Socket errors: connect 0, read 498, write 0, timeout 0
+Requests/sec:  69296.64
+Transfer/sec:      6.61MB
+
 ```
 
 ```bash
@@ -43,12 +53,13 @@ Transfer/sec:      5.30MB
 Running 10s test @ http://127.0.0.1:8080
   5 threads and 500 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    38.65ms   64.12ms 563.87ms   85.54%
-    Req/Sec    13.01k    12.42k   68.54k    79.33%
-  613855 requests in 10.10s, 54.44MB read
-  Socket errors: connect 0, read 370, write 0, timeout 0
-Requests/sec:  60798.65
-Transfer/sec:      5.39MB
+    Latency    48.55ms   81.98ms 587.99ms   84.79%
+    Req/Sec    15.44k    14.87k   71.71k    81.15%
+  649376 requests in 10.07s, 57.59MB read
+  Socket errors: connect 0, read 405, write 0, timeout 0
+Requests/sec:  64462.95
+Transfer/sec:      5.72MB
+
 ```
 
 ### vertx
