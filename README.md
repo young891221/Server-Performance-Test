@@ -1,6 +1,6 @@
 # Server Framework Benchmark
 Server Frameworks performance test using `wrk`. You can test other benchmark tool.
-Test consist 10 threads vs 5 threads.
+The test consists of 10 threads vs 5 threads.
 
 ## Test Server Spec
 - Mac Mojave 10.14.2
