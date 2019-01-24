@@ -1,19 +1,29 @@
 sourceCompatibility = 1.8
 
-dependencies {
-    ['armeria',
-     'armeria-grpc',
-     'armeria-jetty',
-     'armeria-kafka',
-     'armeria-logback',
-     'armeria-retrofit2',
-     'armeria-rxjava',
-     'armeria-saml',
-     'armeria-thrift',
-     'armeria-zipkin',
-     'armeria-spring-boot-autoconfigure',
-     'armeria-spring-boot-webflux-autoconfigure',
-     'armeria-zookeeper'].each {
-        compile "com.linecorp.armeria:${it}:0.78.1"
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.linecorp.armeria:armeria-bom:0.78.1'
     }
+}
+
+springBoot {
+    mainClassName = 'com.bill.api.performance.WebfluxApplication'
+}
+
+dependencies {
+    compile 'com.linecorp.armeria:armeria-spring-boot-webflux-starter'
+
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

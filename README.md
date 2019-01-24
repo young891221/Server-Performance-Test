@@ -32,7 +32,6 @@ Running 10s test @ http://127.0.0.1:8080
   Socket errors: connect 0, read 498, write 0, timeout 0
 Requests/sec:  69296.64
 Transfer/sec:      6.61MB
-
 ```
 
 ```bash
@@ -70,7 +69,6 @@ Running 10s test @ http://127.0.0.1:8080
   Socket errors: connect 0, read 405, write 0, timeout 0
 Requests/sec:  64462.95
 Transfer/sec:      5.72MB
-
 ```
 
 ### vertx
@@ -134,7 +132,6 @@ Running 10s test @ http://127.0.0.1:8080
   Socket errors: connect 0, read 470, write 0, timeout 61
 Requests/sec:  19013.30
 Transfer/sec:      1.67MB
-
 ```
 
 ```bash
@@ -147,5 +144,47 @@ Running 10s test @ http://127.0.0.1:8080
   Socket errors: connect 0, read 448, write 0, timeout 71
 Requests/sec:  16425.25
 Transfer/sec:      1.44MB
+```
 
+## armeria + webflux
+Recently armeria offers webflux functionality. There is a difference in performance between pure mapping provided by armeria and controller mapping provided by webflux.
+
+### webflux + armeria pure mapping(worker = 16)
+```java
+@Bean
+public ArmeriaServerConfigurator armeriaServerConfigurator() {
+    return serverBuilder -> serverBuilder
+            .workerGroup(EventLoopGroups.newEventLoopGroup(16), true)
+            .service("/", (ctx, res) -> HttpResponse.of("Hello Armeria"));
+}
+```
+```bash
+Running 10s test @ http://127.0.0.1:8080
+  10 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    77.07ms  124.45ms 885.30ms   84.35%
+    Req/Sec     7.30k     7.86k   65.69k    92.51%
+  642660 requests in 10.10s, 60.06MB read
+  Socket errors: connect 0, read 382, write 0, timeout 0
+Requests/sec:  63620.73
+Transfer/sec:      5.95MB
+```
+
+### armeria + webflux controller mapping(worker = 16)
+```java
+@GetMapping
+Mono<String> hello() {
+    return Mono.just("Hello Armeria Webflux");
+}
+```
+```bash
+Running 10s test @ http://127.0.0.1:8080
+  10 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    50.68ms   73.44ms 505.10ms   84.20%
+    Req/Sec     2.09k   656.98     5.48k    73.27%
+  207208 requests in 10.09s, 19.76MB read
+  Socket errors: connect 0, read 485, write 0, timeout 0
+Requests/sec:  20526.78
+Transfer/sec:      1.96MB
 ```
