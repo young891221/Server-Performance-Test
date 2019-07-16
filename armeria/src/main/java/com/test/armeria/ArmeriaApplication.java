@@ -5,6 +5,7 @@
 package com.test.armeria;
 
 import com.linecorp.armeria.common.HttpResponse;
+import com.linecorp.armeria.common.SessionProtocol;
 import com.linecorp.armeria.common.util.EventLoopGroups;
 import com.linecorp.armeria.server.Server;
 import com.linecorp.armeria.server.ServerBuilder;
@@ -17,15 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 
 /**
  * Created by youngjae.havi on 2019-01-21
  */
-//@EnableWebFlux
-//@RestController
+@EnableWebFlux
+@RestController
 @SpringBootApplication
 public class ArmeriaApplication {
+    private HttpClient httpClient = HttpClient.newBuilder().executor(Executors.newScheduledThreadPool(4)).build();
 
     /**
      * only armeria server
@@ -59,7 +66,18 @@ public class ArmeriaApplication {
     public ArmeriaServerConfigurator armeriaServerConfigurator() {
         return serverBuilder -> serverBuilder
                 .workerGroup(EventLoopGroups.newEventLoopGroup(16), true)
-                .service("/", (ctx, res) -> HttpResponse.of("Hello Armeria"));
+                .service("/", (ctx, res) -> HttpResponse.of("Hello Armeria"))
+                .service("/test", ((ctx, req) -> {
+                    HttpRequest request = HttpRequest.newBuilder()
+                            .uri(URI.create("http://localhost:8083/delay"))
+                            .GET()
+                            .build();
+                    return HttpResponse.of(
+                            httpClient.sendAsync(request, java.net.http.HttpResponse.BodyHandlers.ofString())
+                                    .thenApply(java.net.http.HttpResponse::body)
+                                    .thenApply(x -> "armeria-client: " + x).get()
+                    );
+                }));
     }
 
     /**

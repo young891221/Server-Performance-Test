@@ -188,3 +188,54 @@ Running 10s test @ http://127.0.0.1:8080
 Requests/sec:  20526.78
 Transfer/sec:      1.96MB
 ```
+
+## Delay Test
+
+### armeria delay api
+```java
+.service("/test", ((ctx, req) -> {
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8083/delay"))
+            .GET()
+            .build();
+    return HttpResponse.of(
+            httpClient.sendAsync(request, java.net.http.HttpResponse.BodyHandlers.ofString())
+                    .thenApply(java.net.http.HttpResponse::body)
+                    .thenApply(x -> "armeria-client: " + x).get()
+    );
+}));
+```
+```bash
+Running 10s test @ http://localhost:8080/test
+  10 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   210.36ms   61.45ms 663.49ms   69.46%
+    Req/Sec   216.48     53.95   350.00     72.85%
+  21609 requests in 10.10s, 2.08MB read
+  Socket errors: connect 0, read 348, write 0, timeout 0
+Requests/sec:   2139.03
+Transfer/sec:    210.99KB
+```
+
+### webflux delay api
+```java
+@GetMapping("/test")
+Mono<String> delay() {
+    return webClient.get()
+            .uri("/delay")
+            .retrieve()
+            .bodyToMono(String.class)
+            .map(x -> "webflux-webclient: " + x);
+}
+```
+```bash
+Running 10s test @ http://localhost:8083/test
+  10 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    81.39ms   70.79ms   1.04s    93.82%
+    Req/Sec   574.43    154.98     0.86k    68.40%
+  57295 requests in 10.08s, 5.63MB read
+  Socket errors: connect 0, read 473, write 0, timeout 0
+Requests/sec:   5686.75
+Transfer/sec:    572.01KB
+```
