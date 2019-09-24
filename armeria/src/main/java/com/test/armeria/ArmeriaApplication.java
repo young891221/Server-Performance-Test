@@ -62,7 +62,7 @@ public class ArmeriaApplication {
      * spring boot + armeria server and connector is armeria service mapping. Not spring controller.
      * @return
      */
-    @Bean
+    //@Bean
     public ArmeriaServerConfigurator armeriaServerConfigurator() {
         return serverBuilder -> serverBuilder
                 .workerGroup(EventLoopGroups.newEventLoopGroup(16), true)
@@ -75,16 +75,21 @@ public class ArmeriaApplication {
                     return HttpResponse.of(
                             httpClient.sendAsync(request, java.net.http.HttpResponse.BodyHandlers.ofString())
                                     .thenApply(java.net.http.HttpResponse::body)
-                                    .thenApply(x -> "armeria-client: " + x).get()
+                                    .thenApply(x -> "armeria-client: " + x).join()
                     );
                 }));
     }
 
     /**
-     * sprinb webflux + armeria server and connector is spring webflux controller.
+     * armeria server supports both generic mapping and webflux mapping.
      */
-    /*@GetMapping
-    Mono<String> hello() {
+    @GetMapping("on")
+    Mono<String> usingWebflux() {
         return Mono.just("Hello Armeria Webflux");
-    }*/
+    }
+
+    @GetMapping("off")
+    String notUsingWebFlux() {
+        return "Not webFlux";
+    }
 }
