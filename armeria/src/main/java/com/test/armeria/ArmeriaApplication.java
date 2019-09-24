@@ -81,15 +81,15 @@ public class ArmeriaApplication {
     }
 
     /**
-     * armeria server supports both generic mapping and webflux mapping.
+     * armeria server supports generic mapping and webflux mapping together.
      */
     @GetMapping("on")
     Mono<String> usingWebflux() {
-        return Mono.just("Hello Armeria Webflux");
+        return Mono.just("Armeria support Webflux");
     }
 
     @GetMapping("off")
     String notUsingWebFlux() {
-        return "Not webFlux";
+        return "Armeria support SpringMVC";
     }
 }
